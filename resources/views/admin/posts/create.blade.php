@@ -14,7 +14,7 @@
                     <div class="form-group">
                         <input type="text" name="title"
                             class="form-control {{ $errors->has('title') ? 'is-invalid' : ''}}"
-                            placeholder="Ingresa el titulo de la publicación" value="{{old('title')}}">
+                            placeholder="Ingresa el titulo de la publicación" value="{{old('title')}}" required>
                     </div>
                 </div>
                 <div class="modal-footer">

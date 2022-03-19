@@ -44,7 +44,7 @@ class PostsController extends Controller
 
         //Asignar etiquetas
         $post->tags()->sync($request->get('tags'));
-        return back()->with('flash', 'U post has saved');
+        return redirect()->route('admin.posts.edit', $post)->with('flash', 'U post has saved');
     }
 
     public function store (Request $request)
