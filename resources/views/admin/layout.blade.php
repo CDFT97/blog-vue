@@ -77,9 +77,6 @@
         <div class="row">
           <div class="col-lg-12">
             <div class="card-body">
-              @if (session()->has('flash'))
-                  <div class="alert alert-success">{{ session('flash') }}</div>
-              @endif
               @yield('content')
             </div>
           </div>
@@ -121,8 +118,12 @@
 <!-- Bootstrap 4 -->
 <script src="{{ asset('adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <!-- AdminLTE App -->
+{{-- Sweet alert 2 --}}
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 @stack('scripts')
 <script src="{{ asset('adminlte/js/adminlte.min.js') }}"></script>
+
 
 
 @include('admin.posts.create')

@@ -244,4 +244,14 @@
         })
     Dropzone.autoDiscover = false;
 </script>
+
+@if (session('flash') )
+    <script>
+      Swal.fire(
+          'Post Actualizado!',
+          'El Post ha sido Actualizado.',
+          'success'
+      )
+    </script>
+@endif
 @endpush

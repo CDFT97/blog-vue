@@ -1,91 +1,92 @@
 @extends('admin.layout')
 @section('header')
 <div class="content-header">
-    <div class="container-fluid">
-      <div class="row mb-2">
-        <div class="col-sm-6">
-          <h1 class="m-0">All Posts</h1>
-        </div><!-- /.col -->
-        <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Home</a></li>
-              <li class="breadcrumb-item active">All Posts</li>
-            </ol>
-        </div><!-- /.col -->
-      </div><!-- /.row -->
-    </div><!-- /.container-fluid -->
-  </div>
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0">All Posts</h1>
+      </div><!-- /.col -->
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Home</a></li>
+          <li class="breadcrumb-item active">All Posts</li>
+        </ol>
+      </div><!-- /.col -->
+    </div><!-- /.row -->
+  </div><!-- /.container-fluid -->
+</div>
 @endsection
 @section('content')
 
 <div class="container-fluid">
-    <div class="row">
-      <div class="col-12">
-        <!-- /.card -->
+  <div class="row">
+    <div class="col-12">
+      <!-- /.card -->
 
-        <div class="card card-outline card-primary">
-          <div class="card-header">
-            <h3 class="card-title">List of posts</h3>
-            <button class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i> Create Post</button>
-          </div>
-          <!-- /.card-header -->
-          <div class="card-body">
-            <table id="posts-table" class="table table-bordered table-striped">
-              <thead>
+      <div class="card card-outline card-primary">
+        <div class="card-header">
+          <h3 class="card-title">List of posts</h3>
+          <button class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModal"><i
+              class="fas fa-plus"></i> Create Post</button>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+          <table id="posts-table" class="table table-bordered table-striped">
+            <thead>
               <tr>
                 <th>ID</th>
                 <th>Title</th>
                 <th>Excerpt</th>
                 <th>Actions</th>
               </tr>
-              </thead>
-              <tbody>
-                @foreach ($posts as $post)
-                    <tr>
-                        <td>{{$post->id}}</td>
-                        <td>{{$post->title}}</td>
-                        <td>{{$post->excerpt}}</td>
-                        <td>
-                            <a href="{{ route('posts.show', $post) }}" target="_blank" class="btn btn-sm btn-default">
-                                <i class="fas fa-eye"></i>
-                            </a>
+            </thead>
+            <tbody>
+              @foreach ($posts as $post)
+              <tr>
+                <td>{{$post->id}}</td>
+                <td>{{$post->title}}</td>
+                <td>{{$post->excerpt}}</td>
+                <td>
+                  <a href="{{ route('posts.show', $post) }}" target="_blank" class="btn btn-sm btn-default">
+                    <i class="fas fa-eye"></i>
+                  </a>
 
-                            <a href="{{ route('admin.posts.edit', $post) }}" class="btn btn-sm btn-info">
-                                <i class="fas fa-pencil-alt"></i>
-                            </a>
-                            <form method="POST" action="{{route('admin.posts.destroy', $post)}}" class="d-inline">
-                              @csrf @method('DELETE')
-                              <button class="btn btn-sm btn-danger">
-                                  <i class="fas fa-trash"></i>
-                              </button>
-                            </form>
-                        </td>
-                    </tr>
-                @endforeach
-              </tbody>
-            </table>
-          </div>
-          <!-- /.card-body -->
+                  <a href="{{ route('admin.posts.edit', $post) }}" class="btn btn-sm btn-info">
+                    <i class="fas fa-pencil-alt"></i>
+                  </a>
+                  <form method="POST" class="deleteConfirm d-inline" action="{{route('admin.posts.destroy', $post)}}" class="d-inline">
+                    @csrf @method('DELETE')
+                    <button class="btn btn-sm btn-danger" >
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </form>
+                </td>
+              </tr>
+              @endforeach
+            </tbody>
+          </table>
         </div>
-        <!-- /.card -->
+        <!-- /.card-body -->
       </div>
-      <!-- /.col -->
+      <!-- /.card -->
     </div>
-    <!-- /.row -->
+    <!-- /.col -->
   </div>
+  <!-- /.row -->
+</div>
 
 
 @endsection
 
 @push('styles')
-      {{-- DataTables --}}
-  <link rel="stylesheet" href="{{ asset('adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('adminlte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+{{-- DataTables --}}
+<link rel="stylesheet" href="{{ asset('adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('adminlte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
 @endpush
 
 @push('scripts')
-    <!-- DataTables  & Plugins -->
+<!-- DataTables  & Plugins -->
 <script src="{{ asset('adminlte/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('adminlte/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
@@ -98,6 +99,7 @@
 <script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
 <script src="{{ asset('adminlte/plugins/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
 <script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+
 <script>
   $(function () {
     $('#posts-table').DataTable({
@@ -110,7 +112,36 @@
       "responsive": true,
     });
   });
-
-
 </script>
+
+<script>
+$('.deleteConfirm').click(function (e) {
+    e.preventDefault();
+
+    Swal.fire({
+      title: 'Estas seguro?',
+      text: "Esta accion no se puede deshacer!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, Eliminalo!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.submit();
+      }
+
+  })
+});
+</script>
+
+@if (session('flash') )
+    <script>
+      Swal.fire(
+          'Post Eliminado!',
+          'El Post ha sido Eliminado.',
+          'success'
+      )
+    </script>
+@endif
 @endpush
