@@ -64,21 +64,7 @@ class PostsController extends Controller
 
     public function destroy(Post $post)
     {
-        //Eliminar relacion con tags
-        $post->tags()->detach();
-
-        //FORMA 1 para eliminar fotos del post
-        // foreach ($post->photos as $photo):
-        //     $photo->delete();
-        // endforeach;
-
-        // FORMA 2
-        // $post->photos->each(function($photo){
-        //     $photo->delete();
-        // });
-
-        // Forma 3
-        $post->photos->each->delete();
+        
 
         $post->delete();
 
