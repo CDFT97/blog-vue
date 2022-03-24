@@ -81,4 +81,27 @@ class Post extends Model
         //Sincronizar etiquetas
        return $this->tags()->sync($tagIds);
     }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function($post){
+           //Eliminar relacion con tags
+            $post->tags()->detach();
+
+            //FORMA 1 para eliminar fotos del post
+            // foreach ($post->photos as $photo):
+            //     $photo->delete();
+            // endforeach;
+
+            // FORMA 2
+            // $post->photos->each(function($photo){
+            //     $photo->delete();
+            // });
+
+            // Forma 3
+            $post->photos->each->delete();
+        });
+    }
 }
