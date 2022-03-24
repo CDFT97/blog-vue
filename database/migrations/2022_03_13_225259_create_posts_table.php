@@ -18,6 +18,7 @@ class CreatePostsTable extends Migration
             $table->string('title');
             $table->string('url');
             $table->mediumText('excerpt')->nullable();
+            $table->mediumText('iframe')->nullable();
             $table->text('body')->nullable();
             $table->date('published_at')->nullable();
             $table->unsignedInteger('category_id')->nullable();

@@ -46,7 +46,11 @@
                         <td>{{$post->title}}</td>
                         <td>{{$post->excerpt}}</td>
                         <td>
-                            <a href="{{ route('admin.posts.update', str_slug($post->title) )}}" class="btn btn-sm btn-info">
+                            <a href="{{ route('posts.show', $post) }}" target="_blank" class="btn btn-sm btn-default">
+                                <i class="fas fa-eye"></i>
+                            </a>
+
+                            <a href="{{ route('admin.posts.edit', $post) }}" class="btn btn-sm btn-info">
                                 <i class="fas fa-pencil-alt"></i>
                             </a>
                             

@@ -31,13 +31,16 @@
                     <div class="card-body">
                         <div class="form-group">
                             <h4>Titulo</h4>
-                            <input type="text" name="title" class="form-control {{ $errors->has('title') ? 'is-invalid' : ''}}"
-                                placeholder="Ingresa el titulo de la publicación" value="{{old('title', $post->title)}}">
+                            <input type="text" name="title"
+                                class="form-control {{ $errors->has('title') ? 'is-invalid' : ''}}"
+                                placeholder="Ingresa el titulo de la publicación"
+                                value="{{old('title', $post->title)}}">
                         </div>
 
                         <div class="form-group">
                             <h4>Extracto</h4>
-                            <input value="{{old('excerpt', $post->excerpt)}}" type="text" name="excerpt" class="form-control {{ $errors->has('excerpt') ? 'is-invalid' : ''}}"
+                            <input value="{{old('excerpt', $post->excerpt)}}" type="text" name="excerpt"
+                                class="form-control {{ $errors->has('excerpt') ? 'is-invalid' : ''}}"
                                 placeholder="Ingresa el extracto de la publicación">
                         </div>
 
@@ -47,14 +50,21 @@
                                 placeholder="Ingresa el contenido completo de la publicación">{{old('body', $post->body)}}</textarea>
                         </div>
 
+                        <div class="form-group">
+                            <h4>Contenido imbuido de la publicación</h4>
+                            <textarea name="iframe" id="summernote" class="form-control" cols="30" rows="2"
+                                placeholder="Ingresa el contenido embebido de audio o video">{{old('iframe', $post->iframe)}}</textarea>
+                        </div>
+
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Fecha de publicación</label>
                                 <div class="input-group date" id="reservationdate" data-target-input="nearest">
                                     <div class="input-group-append" data-target="#reservationdate"
-                                    data-toggle="datetimepicker">
-                                    <input type="date" name="published_at" class="form-control datetimepicker-input"
-                                        data-target="#reservationdate" value="{{ old('published_at', $post->published_at ? $post->published_at->format('Y-m-d') : null)}}">
+                                        data-toggle="datetimepicker">
+                                        <input type="date" name="published_at" class="form-control datetimepicker-input"
+                                            data-target="#reservationdate"
+                                            value="{{ old('published_at', $post->published_at ? $post->published_at->format('Y-m-d') : null)}}">
                                     </div>
                                 </div>
                             </div>
@@ -63,11 +73,12 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Categorias</label>
-                                <select class="form-control {{ $errors->has('category_id') ? 'is-invalid' : ''}}" name="category_id">
+                                <select class="form-control select2bs4{{ $errors->has('category_id') ? 'is-invalid' : ''}}"
+                                    name="category_id">
                                     <option value="">Seleccione una Categoria </option>
                                     @foreach ($categories as $category)
-                                    <option value="{{$category->id}}"
-                                        {{old('category_id', $post->category_id) == $category->id ? 'selected' : ''}}
+                                    <option value="{{$category->id}}" {{old('category_id', $post->category_id) ==
+                                        $category->id ? 'selected' : ''}}
                                         >{{$category->name}}</option>
                                     @endforeach
                                 </select>
@@ -77,10 +88,12 @@
                         <div class="col-md-6">
                             <div class="form-group clearfix">
                                 <label>Etiquetas</label><br>
-                                <select class="select2bs4 {{ $errors->has('tags') ? 'is-invalid' : ''}}" multiple="multiple" name="tags[]"
-                                    data-placeholder="Selecciona una o mas etiquetas" style="width: 100%;">
+                                <select class="select2bs4 {{ $errors->has('tags') ? 'is-invalid' : ''}}"
+                                    multiple="multiple" name="tags[]" data-placeholder="Selecciona una o mas etiquetas"
+                                    style="width: 100%;">
                                     @foreach ($tags as $tag)
-                                        <option {{ collect(old('tags', $post->tags->pluck('id')))->contains($tag->id) ? 'selected' : '' }}  value="{{$tag->id}}">{{ $tag->name }}</option>
+                                    <option {{ collect(old('tags', $post->tags->pluck('id')))->contains($tag->id) ?
+                                        'selected' : '' }} value="{{$tag->id}}">{{ $tag->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -89,67 +102,10 @@
                             <div class="dropzone">
 
                             </div>
-                            {{-- <div id="actions" class="row">
-                                <div class="col-lg-6">
-                                <div class="btn-group w-100">
-                                    <span class="btn btn-success col fileinput-button">
-                                    <i class="fas fa-plus"></i>
-                                    <span>Add files</span>
-                                    </span>
-                                    <button type="submit" class="btn btn-primary col start">
-                                    <i class="fas fa-upload"></i>
-                                    <span>Start upload</span>
-                                    </button>
-                                    <button type="reset" class="btn btn-warning col cancel">
-                                    <i class="fas fa-times-circle"></i>
-                                    <span>Cancel upload</span>
-                                    </button>
-                                </div>
-                                </div>
-                                <div class="col-lg-6 d-flex align-items-center">
-                                <div class="fileupload-process w-100">
-                                    <div id="total-progress" class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-                                    <div class="progress-bar progress-bar-success" style="width:0%;" data-dz-uploadprogress></div>
-                                    </div>
-                                </div>
-                                </div>
-                            </div>
-                            <div class="table table-striped files" id="previews">
-                                <div id="template" class="row mt-2">
-                                <div class="col-auto">
-                                    <span class="preview"><img src="data:," alt="" data-dz-thumbnail /></span>
-                                </div>
-                                <div class="col d-flex align-items-center">
-                                    <p class="mb-0">
-                                        <span class="lead" data-dz-name></span>
-                                        (<span data-dz-size></span>)
-                                    </p>
-                                    <strong class="error text-danger" data-dz-errormessage></strong>
-                                </div>
-                                <div class="col-4 d-flex align-items-center">
-                                    <div class="progress progress-striped active w-100" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-                                        <div class="progress-bar progress-bar-success" style="width:0%;" data-dz-uploadprogress></div>
-                                    </div>
-                                </div>
-                                <div class="col-auto d-flex align-items-center">
-                                    <div class="btn-group">
-                                    <button class="btn btn-primary start">
-                                        <i class="fas fa-upload"></i>
-                                        <span>Start</span>
-                                    </button>
-                                    <button data-dz-remove class="btn btn-warning cancel">
-                                        <i class="fas fa-times-circle"></i>
-                                        <span>Cancel</span>
-                                    </button>
-                                    <button data-dz-remove class="btn btn-danger delete">
-                                        <i class="fas fa-trash"></i>
-                                        <span>Delete</span>
-                                    </button>
-                                    </div>
-                                </div>
-                                </div>
-                            </div> --}}
+
                         </div>
+
+
                     </div>
                     <!-- /.card-body -->
 
@@ -157,6 +113,20 @@
                         <button type="submit" class="btn btn-primary">Save Post</button>
                     </div>
                 </form>
+                <div class="col-md-6 d-flex">
+                    @foreach ($post->photos as $photo)
+                    <form method="POST" action="{{route('admin.photos.destroy', $photo)}}">
+                        @csrf
+                        {{method_field('DELETE')}}
+                        <div class="col-md-3">
+                            <button style="position: absolute; display:flex" class="btn btn-danger btn-sm">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                            <img style="width: 100px; height: 100px" src="{{url($photo->url)}}">
+                        </div>
+                    </form>
+                    @endforeach
+                </div>
 
             </div>
         </div>
@@ -166,8 +136,8 @@
 
 @push('styles')
 <link href="{{ asset('adminlte/plugins/datapicker/datepicker3.css') }}" rel="stylesheet">
-  <!-- dropzonejs -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/basic.min.css">
+<!-- dropzonejs -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/basic.min.css">
 <!-- summernote -->
 <link rel="stylesheet" href="{{ asset('adminlte/plugins/summernote/summernote-bs4.min.css') }}">
 <!-- Select2 -->
@@ -175,7 +145,7 @@
 <link rel="stylesheet" href="{{ asset('adminlte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
 <!-- iCheck for checkboxes and radio inputs -->
 <link rel="stylesheet" href="{{ asset('adminlte/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
-  <!-- daterange picker -->
+<!-- daterange picker -->
 <link rel="stylesheet" href="{{ asset('adminlte/plugins/daterangepicker/daterangepicker.css') }}">
 @endpush
 
@@ -192,7 +162,7 @@
 <!-- Summernote -->
 <script src="{{ asset('adminlte/plugins/summernote/summernote-bs4.min.js') }}"></script>
 {{-- <script>
-  // DropzoneJS Demo Code Start
+    // DropzoneJS Demo Code Start
   Dropzone.autoDiscover = false
 
   // Get the template HTML and remove it from the doumenthe template HTML and remove it from the doument
@@ -260,7 +230,8 @@
     $(function () {
             //Initialize Select2 Elements
             $('.select2bs4').select2({
-            theme: 'bootstrap4'
+            theme: 'bootstrap4',
+            tags: true
             })
             // Summernote
             $('#summernote').summernote()

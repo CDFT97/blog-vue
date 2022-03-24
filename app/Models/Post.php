@@ -24,6 +24,11 @@ class Post extends Model
         return $this->belongsToMany(Tag::class);
     }
 
+    public function photos()
+    {
+      return $this->hasMany(Photo::class);  
+    }
+
     //queryScope
     public function scopePublished($query)
     {
@@ -37,5 +42,24 @@ class Post extends Model
     public function getRouteKeyName()
     {
         return 'url';
+    }
+
+    //mutador para title
+    public function setTitleAttribute($title)
+    {
+        $this->attributes['title'] = $title;
+        $this->attributes['url'] = str_slug($title);
+    }
+
+    public function setPublishedAtAttribute($published_at)
+    {
+        $this->attributes['published_at'] = $published_at ? Carbon::parse($published_at) : null;
+    }
+
+    public function setCategoryIdAttribute($category)
+    {
+        $this->attributes['category_id'] = Category::find($category)
+                                                ?   $category
+                                                :   Category::create([ 'name' => $category ])->id;
     }
 }

@@ -43,6 +43,11 @@ header nav li a:hover{
     top: 30px;
     text-transform: capitalize;
 }
+
+.post .category a{
+	color: inherit;
+	font-size: inherit;
+}
 .post figure{
 	margin:0;
 }
@@ -64,6 +69,10 @@ header nav li a:hover{
 }
 .post .tag{
 	margin: 0 5px;
+}
+.post .tag a{
+	color: inherit;
+	font-size: inherit;
 }
 .post footer{
 	margin-top: 45px;
@@ -276,7 +285,22 @@ a.btn-bar{
 	float: left;
 	margin-right: 10px;
 }
-      
-      
+
+.overlay{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 24%;
+	height: 26.7%;
+	position: absolute;
+	color: white;
+	font-size: 30px !important;
+	background-color: rgba(0,0,0, .7);
+}
+
+.gallery-photos{
+	overflow: hidden;
+}
+
 
 
