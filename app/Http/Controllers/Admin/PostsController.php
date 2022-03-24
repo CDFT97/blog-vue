@@ -44,7 +44,7 @@ class PostsController extends Controller
         //Selecciona el tag si ya existe o crea uno nuevo de no existir.
         $post->syncTags($request->get('tags'));
 
-        return redirect()->route('admin.posts.edit', $post)->with('flash', 'U post has saved');
+        return redirect()->route('admin.posts.edit', $post)->with('flash', 'U post has been saved');
     }
 
     public function store (Request $request)
@@ -60,6 +60,30 @@ class PostsController extends Controller
         $categories = Category::all();
         $tags = Tag::all();
         return view('admin.posts.edit', compact('post', 'categories', 'tags'));
+    }
+
+    public function destroy(Post $post)
+    {
+        //Eliminar relacion con tags
+        $post->tags()->detach();
+
+        //FORMA 1 para eliminar fotos del post
+        // foreach ($post->photos as $photo):
+        //     $photo->delete();
+        // endforeach;
+
+        // FORMA 2
+        // $post->photos->each(function($photo){
+        //     $photo->delete();
+        // });
+
+        // Forma 3
+        $post->photos->each->delete();
+
+        $post->delete();
+
+        return redirect()->route('admin.posts.index')->with('flash', 'Post has been deleted');
+
     }
 
 }

@@ -53,10 +53,12 @@
                             <a href="{{ route('admin.posts.edit', $post) }}" class="btn btn-sm btn-info">
                                 <i class="fas fa-pencil-alt"></i>
                             </a>
-                            
-                            <a href="#" class="btn btn-sm btn-danger">
-                                <i class="fas fa-trash"></i>
-                            </a>
+                            <form method="POST" action="{{route('admin.posts.destroy', $post)}}" class="d-inline">
+                              @csrf @method('DELETE')
+                              <button class="btn btn-sm btn-danger">
+                                  <i class="fas fa-trash"></i>
+                              </button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach

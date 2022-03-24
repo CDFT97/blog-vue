@@ -2,10 +2,13 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use App\Models\Post;
+use App\Models\Tag;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class PostsTableSeeder extends Seeder
 {
@@ -17,6 +20,7 @@ class PostsTableSeeder extends Seeder
     public function run()
     {
         Post::truncate();
+        Storage::deleteDirectory('public');
 
         $data = [
             [

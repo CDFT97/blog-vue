@@ -31,6 +31,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
     Route::post('posts/create', [PostsController::class, 'store'])->name('admin.posts.store');
     Route::get('posts/{post}', [PostsController::class, 'edit'])->name('admin.posts.edit');
     Route::put('posts/{post}', [PostsController::class, 'update'])->name('admin.posts.update');
+    Route::delete('posts/{post}', [PostsController::class, 'destroy'])->name('admin.posts.destroy');
+
 
     Route::post('posts/{post}/photos', [PhotosController::class, 'store'])->name('admin.posts.photos.store');
     //Eliminar fotos

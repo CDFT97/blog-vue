@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Post;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Photo;
 use Illuminate\Support\Facades\Storage;
@@ -18,10 +17,14 @@ class PhotosController extends Controller
         //Recibir foto de ajax mediante dropzone
         $photo = request()->file('photo')->store('public');
 
-        Photo::create([
+        $post->photos()->create([
             'url' => Storage::url($photo),
-            'post_id' => $post->id
         ]);
+
+        // Photo::create([
+        //     'url' => Storage::url($photo),
+        //     'post_id' => $post->id
+        // ]);
     }
 
     public function destroy(Photo $photo)
@@ -29,9 +32,9 @@ class PhotosController extends Controller
         //Eliminar imagen de la DB
         $photo->delete();
         //Eliminar imagen del servidor
-        $photoPath = str_replace('storage', 'public', $photo->url);
+        // $photoPath = str_replace('storage', 'public', $photo->url);
 
-         Storage::delete($photoPath);
+        //  Storage::delete($photoPath);
 
          return back()->with('flash', 'Foto Eliminada');
     }
