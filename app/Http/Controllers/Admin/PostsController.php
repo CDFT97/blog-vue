@@ -30,27 +30,19 @@ class PostsController extends Controller
         // La validacion se realiza con StorePostRequest
         
         // return Post::create($request->all());
-        $post->title = $request->get('title');
-        $post->body = $request->get('body');
-        $post->iframe = $request->get('iframe');
-        $post->excerpt = $request->get('excerpt');
-        //acciones para la fecha a traves de un mutador
-        $post->published_at = $request->get('published_at');
-        //Crea categoria si es nueva o asigna y ya existe a traves de un mutador
-        $post->category_id = $request->get('category_id');
-
-        $post->save();
+        // $post->title = $request->get('title');
+        // $post->body = $request->get('body');
+        // $post->iframe = $request->get('iframe');
+        // $post->excerpt = $request->get('excerpt');
+        // //acciones para la fecha a traves de un mutador
+        // $post->published_at = $request->get('published_at');
+        // //Crea categoria si es nueva o asigna y ya existe a traves de un mutador
+        // $post->category_id = $request->get('category_id');
+        // $post->save();
+        //Como todos los campos de post tienen los mismos nombres que los datos del form
+        $post->update($request->all());
         //Selecciona el tag si ya existe o crea uno nuevo de no existir.
-        $tags = [];
-
-        foreach($request->get('tags') as $tag):
-            $tags[] = Tag::find($tag)
-                        ?   $tag
-                        :   Tag::create(['name' => $tag])->id;
-        endforeach;
-
-        //Sincronizar etiquetas
-        $post->tags()->sync($tags);
+        $post->syncTags($request->get('tags'));
 
         return redirect()->route('admin.posts.edit', $post)->with('flash', 'U post has saved');
     }
