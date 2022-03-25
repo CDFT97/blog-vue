@@ -51,12 +51,45 @@ class Post extends Model
         return 'url';
     }
 
-    //mutador para title
-    public function setTitleAttribute($title)
+    public static function create(array $attributes = [])
     {
-        $this->attributes['title'] = $title;
-        $this->attributes['url'] = str_slug($title);
+        //Crear post solo con el titulo
+        $post = static::query()->create($attributes);
+        //Generar url amigable con el titulo
+        $post->generateUrl();
+        
+        return $post;
     }
+
+    public function generateUrl()
+    {
+        $url = str_slug($this->title);
+        //Verificar si existe otro post con esta url
+        if($this->where('url', $url)->exists()):
+            //Si existe se agrega el id del post recien creado
+            $url ="{$url}-{$this->id}";
+
+        endif;
+        //Se asigna la url al post
+        $this->url = $url;
+        //Se guarda
+        $this->save();
+    }
+
+    //mutador para title
+    // public function setTitleAttribute($title)
+    // {
+    //     $this->attributes['title'] = $title;
+
+    //     $originalUrl = $url = str_slug($title);
+    //     $count = 1;
+
+    //     while( Post::where('url', $url)->exists() ):
+    //         $url = "{$originalUrl}-" . ++$count;
+    //     endwhile;
+
+    //     $this->attributes['url'] = $url;
+    // }
 
     public function setPublishedAtAttribute($published_at)
     {

@@ -1,6 +1,6 @@
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
-    <form method="POST" action="{{ route('admin.posts.store') }}">
+    <form method="POST" action="{{ route('admin.posts.store', '#create') }}">
         @csrf
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -12,9 +12,9 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <input type="text" name="title"
+                        <input id="post-title" type="text" name="title"
                             class="form-control {{ $errors->has('title') ? 'is-invalid' : ''}}"
-                            placeholder="Ingresa el titulo de la publicación" value="{{old('title')}}" required>
+                            placeholder="Ingresa el titulo de la publicación" value="{{old('title')}}" autofocus required >
                     </div>
                 </div>
                 <div class="modal-footer">

@@ -26,8 +26,10 @@
       <div class="card card-outline card-primary">
         <div class="card-header">
           <h3 class="card-title">List of posts</h3>
-          <button class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModal"><i
-              class="fas fa-plus"></i> Create Post</button>
+          <button class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModal">
+            <i class="fas fa-plus"></i> 
+            Create Post
+          </button>
         </div>
         <!-- /.card-header -->
         <div class="card-body">

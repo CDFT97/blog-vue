@@ -7,11 +7,27 @@ use Illuminate\Http\Request;
 
 class PagesController extends Controller
 {
-    public function index()
+    public function home()
     {
 
         $posts = Post::published()->paginate(3);
 
-        return view('welcome', compact('posts'));
+        return view('pages.home', compact('posts'));
     }
+
+    public function about()
+    {
+        return view('pages.about');
+    }
+
+    public function archive()
+    {
+        return view('pages.archive');
+    }
+
+    public function contact()
+    {
+        return view('pages.contact');
+    }
+
 }
