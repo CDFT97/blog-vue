@@ -53,7 +53,10 @@ class PostsController extends Controller
             'title' =>  'required'
         ]);
 
-        $post = Post::create( $request->only('title') );
+        $post = Post::create([
+            'title' => $request->get('title'),
+            'user_id' =>  auth()->id()
+        ]);
         
 
         return redirect()->route('admin.posts.edit', $post );

@@ -30,6 +30,7 @@ class PostsTableSeeder extends Seeder
             'body'   =>  'contenido de mi primer post',
             'published_at' => Carbon::now()->subDays(5),
             'category_id'   =>  4,
+            'user_id'   =>  1,
             ],
             [
             'title' => 'Titulo 2',
@@ -37,7 +38,8 @@ class PostsTableSeeder extends Seeder
             'excerpt' => 'Extracto de mi Segundo post',
             'body'   =>  'contenido de mi Segundo post',
             'published_at' => Carbon::now()->subDays(4),
-            'category_id'   =>  2
+            'category_id'   =>  2,
+            'user_id'   =>  1,
             ],
             [
             'title' => 'Titulo 3',
@@ -45,7 +47,8 @@ class PostsTableSeeder extends Seeder
             'excerpt' => 'Extracto de mi tercer post',
             'body'   =>  'contenido de mi tercer post',
             'published_at' => Carbon::now()->subDays(3),
-            'category_id'   =>  1
+            'category_id'   =>  1,
+            'user_id'   =>  1,
             ],
             [
             'title' => 'Titulo 4',
@@ -53,7 +56,8 @@ class PostsTableSeeder extends Seeder
             'excerpt' => 'Extracto de mi cuarto post',
             'body'   =>  'contenido de mi cuarto post',
             'published_at' => Carbon::now()->subDays(2),
-            'category_id'   =>  8
+            'category_id'   =>  8,
+            'user_id'   =>  1,
             ],
             [
             'title' => 'Titulo 5',
@@ -61,7 +65,8 @@ class PostsTableSeeder extends Seeder
             'excerpt' => 'Extracto de mi quinto post',
             'body'   =>  'contenido de mi quinto post',
             'published_at' => Carbon::now()->subDays(1),
-            'category_id'   =>  6
+            'category_id'   =>  6,
+            'user_id'   =>  1,
             ]
         ];
 

@@ -16,7 +16,8 @@ class Post extends Model
         'iframe',
         'excerpt',
         'published_at',
-        'category_id'
+        'category_id',
+        'user_id'
     ];
 
     protected $dates = ['published_at'];
@@ -144,5 +145,10 @@ class Post extends Model
             // Forma 3
             $post->photos->each->delete();
         });
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
