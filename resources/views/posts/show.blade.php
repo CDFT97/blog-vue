@@ -5,29 +5,19 @@
 @section('content')
 <article class="post container">
     @if ($post->photos->count() === 1)
-        <figure><img src="{{ $post->photos->first()->url }}" class="img-responsive" ></figure>
+        @include('posts.photo')
     @elseif($post->photos->count() > 1)
         @include('posts.carousel')
     @elseif(!$post->ifame)
-		<div class="video">
-			{!! $post->iframe !!}
-		</div>
-		@endif
+        @include('posts.iframe')
+	@endif
     <div class="content-post">
-        <header class="container-flex space-between">
-            <div class="date">
-                <span class="c-gris">{{ optional($post->published_at)->format('M d') }} / {{$post->user->name }}</span>
-            </div>
-            @if ($post->category)
-                <div class="post-category">
-                    <span class="category">{{ $post->category->name }}</span>
-                </div>
-            @endif
-        </header>
+        
+        @include('posts.header')
+
         <h1>{{ $post->title }}</h1>
         <div class="divider"></div>
         <div class="image-w-text">
-            <figure class="block-left"><img src="img/img-post-2.png" alt=""></figure>
             <div>
                 {!! $post->body !!}
             </div>
