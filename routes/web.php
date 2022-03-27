@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\PostsController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\UsersRolesController;
+use App\Http\Controllers\Admin\UsersPermissionsController;
 use App\Http\Controllers\Admin\PhotosController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\TagsController;
@@ -36,6 +37,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
     Route::resource('users', UsersController::class, ['as' => 'admin'] );
 
     Route::put('users/{user}/roles', [UsersRolesController::class, 'update'])->name('admin.users.roles.update');
+    Route::put('users/{user}/permissions', [UsersPermissionsController::class, 'update'])->name('admin.users.permissions.update');
    
     Route::post('posts/{post}/photos', [PhotosController::class, 'store'])->name('admin.posts.photos.store');
     Route::delete('photos/{photo}', [PhotosController::class, 'destroy'])->name('admin.photos.destroy');
