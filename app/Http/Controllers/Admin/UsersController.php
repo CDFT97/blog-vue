@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
-use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller
@@ -72,18 +72,11 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(UpdateUserRequest $request, User $user)
     {
-        $rules = [
-            'name' => 'required',
-            'email' => ['required', Rule::unique('users')->ignore($user->id)],
-        ];
-        //Si el campo password esta lleno se agrega al array de validaciones
-        if($request->filled('password')):
-            $rules['password'] = ['confirmed','min:6'];
-        endif;
+        
 
-        $user->update( $request->validate($rules) );
+        $user->update( $request->validated() );
 
         return back()->withFlash('User updated!');
     }
