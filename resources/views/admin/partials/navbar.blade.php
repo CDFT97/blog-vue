@@ -130,7 +130,7 @@
         <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {{auth()->user()->name}} - {{auth()->user()->roles->first()->name}}
+                {{auth()->user()->name}} {{ auth()->user()->getRoleNames()->first() ? '/ '. auth()->user()->getRoleNames()->implode(' / ') : '' }}
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <a class="dropdown-item" href="#">Profile</a>

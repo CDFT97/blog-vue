@@ -66,6 +66,7 @@ class UsersController extends Controller
     {
         $roles = Role::pluck('name', 'id');
         $permissions = Permission::pluck('name', 'id');
+        
         return view('admin.users.edit', compact('user', 'roles', 'permissions'));
     }
 
