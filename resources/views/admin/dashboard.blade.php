@@ -1,6 +1,6 @@
 @extends('admin.layout')
 
 @section('content')
-    <h1>Title aaaa</h1>
+    <h1>Welcome to my Admin Blog</h1>
 
 @endsection

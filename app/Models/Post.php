@@ -46,10 +46,23 @@ class Post extends Model
                         ->where('published_at', '<=', Carbon::now() );
     }
 
+    public function scopeAllowed($query)
+    {
+        if( auth()->user()->can('view', $this) ){
+
+            return $query;
+
+        }else{
+            
+           return $query->where('user_id', auth()->user()->id );
+
+        }
+    }
+
     //Verificar si el post es publico
     public function isPublished()
     {
-        //Retorna verdado en caso de existir fecha
+        //Retorna verdad en caso de existir fecha
         //Falso en caso de ser null 
         return ! is_null( $this->published_at ) && $this->published_at < today();
     }

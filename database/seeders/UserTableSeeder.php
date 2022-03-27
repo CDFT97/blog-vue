@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class UserTableSeeder extends Seeder
 {
@@ -14,19 +16,33 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
+        Permission::Truncate();
+        Role::Truncate();
         User::Truncate();
 
-        $user = new User;
-        $user->name = 'Admin';
-        $user->email = 'admin@admin.com';
-        $user->password = bcrypt('admin1234');
-        $user->save();
+        $adminRole = Role::create(['name' => 'Admin']);
+        $writerRole = Role::create(['name' => 'Writer']);
 
-        $user = new User;
-        $user->name = 'Luis';
-        $user->email = 'luis@admin.com';
-        $user->password = bcrypt('admin1234');
-        $user->save();
+        $viewPostsPermission = Permission::create(['name' => 'View posts']);
+        $createPostsPermission = Permission::create(['name' => 'Create posts']);
+        $updatePostsPermission = Permission::create(['name' => 'Update posts']);
+        $deletePostsPermission = Permission::create(['name' => 'Delete posts']);
+
+        $admin = new User;
+        $admin->name = 'Admin';
+        $admin->email = 'admin@admin.com';
+        $admin->password = bcrypt('admin1234');
+        $admin->save();
+
+        $admin->assignRole($adminRole);
+
+        $writer = new User;
+        $writer->name = 'Luis';
+        $writer->email = 'luis@luis.com';
+        $writer->password = bcrypt('luis1234');
+        $writer->save();
+
+        $writer->assignRole($writerRole);
 
     }
 }

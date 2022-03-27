@@ -10,15 +10,18 @@ class PostPolicy
 {
     use HandlesAuthorization;
 
-    /**
-     * Determine whether the user can view any models.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
+    public function before($user)
+    {
+        //Permisos totales para el rol admin
+        if( $user->hasRole('Admin') )
+        {
+            return true;
+        }
+    }
+
     public function viewAny(User $user)
     {
-        
+        //
     }
 
     /**
@@ -30,7 +33,7 @@ class PostPolicy
      */
     public function view(User $user, Post $post)
     {
-        return $user->id === $post->user_id;
+        return $user->id === $post->user_id || $user->hasPermissionTo('View posts');
     }
 
     /**
@@ -41,7 +44,7 @@ class PostPolicy
      */
     public function create(User $user)
     {
-        return true;
+        return $user->hasPermissionTo('Create posts');
     }
 
     /**
@@ -53,7 +56,7 @@ class PostPolicy
      */
     public function update(User $user, Post $post)
     {
-        return $user->id === $post->user_id;
+        return $user->id === $post->user_id || $user->hasPermissionTo('Update posts');
     }
 
     /**
@@ -65,7 +68,7 @@ class PostPolicy
      */
     public function delete(User $user, Post $post)
     {
-        return $user->id === $post->user_id;
+        return $user->id === $post->user_id || $user->hasPermissionTo('Delete posts');;
     }
 
     /**

@@ -14,8 +14,7 @@ class PostsController extends Controller
 {
     public function index()
     {
-        //Obtener posts del usuario autenticado
-        $posts = auth()->user()->posts;
+        $posts = Post::allowed()->get();
 
         return view('admin.posts.index', compact('posts'));
     }
@@ -70,7 +69,7 @@ class PostsController extends Controller
     public function edit (Post $post)
     {
         
-        $this->authorize('view', $post);
+        $this->authorize('update', $post);
 
         $categories = Category::all();
         $tags = Tag::all();
