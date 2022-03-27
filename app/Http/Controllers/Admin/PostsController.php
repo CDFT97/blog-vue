@@ -14,7 +14,9 @@ class PostsController extends Controller
 {
     public function index()
     {
-        $posts = Post::all();
+        //Obtener posts del usuario autenticado
+        $posts = auth()->user()->posts;
+
         return view('admin.posts.index', compact('posts'));
     }
 
@@ -27,6 +29,7 @@ class PostsController extends Controller
 
     public function update(Post $post,StorePostRequest $request)
     {
+        $this->authorize('update', $post);
         // La validacion se realiza con StorePostRequest
         
         // return Post::create($request->all());
@@ -49,6 +52,8 @@ class PostsController extends Controller
 
     public function store (Request $request)
     {
+        $this->authorize('create', new Post);
+
         $this->validate($request, [ 
             'title' =>  'required'
         ]);
@@ -64,14 +69,18 @@ class PostsController extends Controller
 
     public function edit (Post $post)
     {
+        
+        $this->authorize('view', $post);
+
         $categories = Category::all();
         $tags = Tag::all();
+
         return view('admin.posts.edit', compact('post', 'categories', 'tags'));
     }
 
     public function destroy(Post $post)
     {
-        
+        $this->authorize('delete', $post);
 
         $post->delete();
 

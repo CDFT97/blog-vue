@@ -57,7 +57,7 @@ class PostsTableSeeder extends Seeder
             'body'   =>  'contenido de mi cuarto post',
             'published_at' => Carbon::now()->subDays(2),
             'category_id'   =>  8,
-            'user_id'   =>  1,
+            'user_id'   =>  2,
             ],
             [
             'title' => 'Titulo 5',
@@ -66,7 +66,7 @@ class PostsTableSeeder extends Seeder
             'body'   =>  'contenido de mi quinto post',
             'published_at' => Carbon::now()->subDays(1),
             'category_id'   =>  6,
-            'user_id'   =>  1,
+            'user_id'   =>  2,
             ]
         ];
 
