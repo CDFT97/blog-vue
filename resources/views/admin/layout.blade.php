@@ -13,11 +13,14 @@
   @stack('styles')
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('adminlte/css/adminlte.min.css') }}">
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script src="{{ asset('js/app.js') }}"></script>
   @stack('styles')
 
 
 </head>
 <body class="hold-transition sidebar-mini">
+  @include('sweet::alert')
 <div class="wrapper">
 
     <!-- Navbar -->

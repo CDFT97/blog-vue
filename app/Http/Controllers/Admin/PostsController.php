@@ -45,8 +45,9 @@ class PostsController extends Controller
         $post->update($request->all());
         //Selecciona el tag si ya existe o crea uno nuevo de no existir.
         $post->syncTags($request->get('tags'));
+        alert()->success('Post has been updated', 'Post updated');
 
-        return redirect()->route('admin.posts.edit', $post)->with('flash', 'U post has been saved');
+        return redirect()->route('admin.posts.edit', $post);
     }
 
     public function store (Request $request)
@@ -82,8 +83,9 @@ class PostsController extends Controller
         $this->authorize('delete', $post);
 
         $post->delete();
+        alert()->success('Post has been deleted', 'Post deleted');
 
-        return redirect()->route('admin.posts.index')->with('flash', 'Post has been deleted');
+        return redirect()->route('admin.posts.index');
 
     }
 

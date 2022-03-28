@@ -121,7 +121,7 @@ $('.deleteConfirm').click(function (e) {
     e.preventDefault();
 
     Swal.fire({
-      title: 'Estas seguro?',
+      title: 'Are you sure?',
       text: "Esta accion no se puede deshacer!",
       icon: 'warning',
       showCancelButton: true,
@@ -137,13 +137,4 @@ $('.deleteConfirm').click(function (e) {
 });
 </script>
 
-@if (session('flash') )
-    <script>
-      Swal.fire(
-          'Post Eliminado!',
-          'El Post ha sido Eliminado.',
-          'success'
-      )
-    </script>
-@endif
 @endpush

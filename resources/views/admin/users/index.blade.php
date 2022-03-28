@@ -26,10 +26,10 @@
       <div class="card card-outline card-primary">
         <div class="card-header">
           <h3 class="card-title">List of Users</h3>
-          <button class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModal">
+          <a class="btn btn-primary float-right" href="{{ route('admin.users.create') }}">
             <i class="fas fa-plus"></i> 
-            Create Post
-          </button>
+            Create User
+          </a>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
@@ -40,6 +40,7 @@
                 <th>Name</th>
                 <th>Email</th>
                 <th>Roles</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -122,7 +123,7 @@ $('.deleteConfirm').click(function (e) {
     e.preventDefault();
 
     Swal.fire({
-      title: 'Estas seguro?',
+      title: 'Are you sure?',
       text: "Esta accion no se puede deshacer!",
       icon: 'warning',
       showCancelButton: true,
@@ -138,13 +139,4 @@ $('.deleteConfirm').click(function (e) {
 });
 </script>
 
-@if (session('flash') )
-    <script>
-      Swal.fire(
-          'Post Eliminado!',
-          'El Post ha sido Eliminado.',
-          'success'
-      )
-    </script>
-@endif
 @endpush

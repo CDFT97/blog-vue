@@ -30,7 +30,11 @@ class UsersController extends Controller
      */
     public function create()
     {
-        //
+        $user = new User;
+        $roles = Role::with('permissions')->get();
+        $permissions = Permission::pluck('name', 'id');
+        
+        return view('admin.users.create', compact('user', 'roles', 'permissions'));
     }
 
     /**
@@ -41,7 +45,24 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       //Generar formulario
+       $data = $request->validate([
+           'name' => 'required|max:255',
+           'email' => 'required|max:255|unique:users'
+       ]);
+       //Generar contraseña
+       $data['password'] = str_random(8);
+       //Crear usuario
+       $user = User::create($data);
+
+       //Asignar roles
+       $user->assignRole($request->roles);
+       //Asignar permisos
+       $user->givePermissionTo($request->permissions);
+       //Enviar email con datos de acceso
+
+       //regresar respuesta al usuario
+       return redirect()->route('admin.users.index')->withFlash('The user has been created');
     }
 
     /**
@@ -64,7 +85,7 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-        $roles = Role::pluck('name', 'id');
+        $roles = Role::with('permissions')->get();
         $permissions = Permission::pluck('name', 'id');
         
         return view('admin.users.edit', compact('user', 'roles', 'permissions'));
@@ -83,7 +104,9 @@ class UsersController extends Controller
 
         $user->update( $request->validated() );
 
-        return back()->withFlash('User updated!');
+        alert()->success('User has been updated', 'User updated');
+
+        return back();
     }
 
     /**
