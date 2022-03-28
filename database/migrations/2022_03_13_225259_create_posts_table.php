@@ -21,9 +21,11 @@ class CreatePostsTable extends Migration
             $table->mediumText('iframe')->nullable();
             $table->text('body')->nullable();
             $table->date('published_at')->nullable();
-            $table->unsignedInteger('category_id')->nullable();
-            $table->unsignedInteger('user_id');
+            $table->unsignedBigInteger('category_id')->nullable();
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

@@ -14,6 +14,7 @@ class PostsController extends Controller
 {
     public function index()
     {
+        //Scope para el permiso (En el modelo)
         $posts = Post::allowed()->get();
 
         return view('admin.posts.index', compact('posts'));
