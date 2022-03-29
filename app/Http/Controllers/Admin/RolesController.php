@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\SaveRolesRequest;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
@@ -38,19 +38,11 @@ class RolesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SaveRolesRequest $request)
     {
-        $data = $request->validate([
-            'name' => 'required|unique:roles',
-            'display_name' => 'required|unique:roles',
-        ],[
-            'display_name.required' => 'The name field is required.',
-            'display_name.unique' => 'The name has already been taken.',
-            'name.required' => 'The identifier field is required.',
-            'name.unique' => 'The identifier has already been taken.',
-        ]);
+
         $permissions = $request->permissions;
-        $role = Role::create($data);
+        $role = Role::create($request->validated());
 
         if($request->has('permissions')):
             $role->givePermissionTo($permissions);
@@ -92,17 +84,10 @@ class RolesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Role $role)
+    public function update(SaveRolesRequest $request, Role $role)
     {
-        $data = $request->validate([
-            'display_name' => 'required|unique:roles,display_name,' . $role->id,
-        ],[
-            'display_unique' => 'The name has already been taken.',
-            'display_name.required' => 'The name field is required.'
-        ]);
 
-        
-        $role->update($data);
+        $role->update( $request->validated() );
         
         $role->permissions()->detach();
         
