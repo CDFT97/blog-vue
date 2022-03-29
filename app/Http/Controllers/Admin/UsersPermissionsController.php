@@ -12,6 +12,7 @@ class UsersPermissionsController extends Controller
     {
         $user->syncPermissions($request->permissions);
 
-        return back()->withFlash('The permissions has been updated');
+        alert()->success('The user permissions has been updated', 'Permissions updated');
+        return back();
     }
 }

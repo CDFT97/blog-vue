@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\UsersRolesController;
 use App\Http\Controllers\Admin\UsersPermissionsController;
 use App\Http\Controllers\Admin\PhotosController;
+use App\Http\Controllers\Admin\RolesController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\TagsController;
 use App\Http\Controllers\CategoriesController;
@@ -36,8 +37,16 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
     Route::resource('posts', PostsController::class, ['except' => 'show', 'as' => 'admin'] );
     Route::resource('users', UsersController::class, ['as' => 'admin'] );
 
-    Route::put('users/{user}/roles', [UsersRolesController::class, 'update'])->name('admin.users.roles.update');
-    Route::put('users/{user}/permissions', [UsersPermissionsController::class, 'update'])->name('admin.users.permissions.update');
+    Route::resource('roles', RolesController::class, ['as' => 'admin'] );
+
+
+    Route::middleware('role:Admin')
+            ->put('users/{user}/roles', [UsersRolesController::class, 'update'])
+            ->name('admin.users.roles.update');
+
+    Route::middleware('role:Admin')
+            ->put('users/{user}/permissions', [UsersPermissionsController::class, 'update'])
+            ->name('admin.users.permissions.update');
    
     Route::post('posts/{post}/photos', [PhotosController::class, 'store'])->name('admin.posts.photos.store');
     Route::delete('photos/{photo}', [PhotosController::class, 'destroy'])->name('admin.photos.destroy');

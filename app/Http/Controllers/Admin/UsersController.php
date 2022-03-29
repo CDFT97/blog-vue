@@ -96,8 +96,8 @@ class UsersController extends Controller
     {
         $this->authorize('update', $user);
         $roles = Role::with('permissions')->get();
-        $permissions = Permission::pluck('name', 'id');
-        
+        $permissions = Permission::orderBy('id', 'asc')->pluck('name', 'id');
+
         return view('admin.users.edit', compact('user', 'roles', 'permissions'));
     }
 

@@ -9,13 +9,7 @@
             </div>
 
             <div class="card-body">
-                @if ( $errors->any() )
-                <ul class="list-group">
-                    @foreach ($errors->all() as $error)
-                    <li class="list-group-item list-group-item-danger">{{$error}}</li>
-                    @endforeach
-                </ul>
-                @endif
+                @include('admin.partials.error-messages')
                 <form method="POST" action="{{ route('admin.users.store') }}">
                     @csrf
                     <div class="form-group">
@@ -28,15 +22,22 @@
                         <input name="email" value="{{ old('email') }}" type="email" class="form-control">
                     </div>
 
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group d-inline" >
+                                <h4>Roles</h4>
+                                @include('admin.roles.checkboxes')
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="form-group d-inline" >
+                                <h4>Permissions</h4>
+                                @include('admin.permissions.checkboxes', ['model' => $user])
+                            </div>
+                        </div>
+                    </div>
                 
-                    <div class="form-group" style="display: inline-block; width:45%; margin-left: 10px">
-                        <h4>Roles</h4>
-                        @include('admin.roles.checkboxes')
-                    </div>
-                    <div class="form-group" style="display: inline-block; width:45%">
-                        <h4>Permissions</h4>
-                        @include('admin.permissions.checkboxes')
-                    </div>
 
                     <span class="help-block d-block">The password will be generated and sent by mail</span>
 
