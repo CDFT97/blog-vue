@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\PostsController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\PermissionsController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\UsersRolesController;
 use App\Http\Controllers\Admin\UsersPermissionsController;
@@ -38,6 +39,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
     Route::resource('users', UsersController::class, ['as' => 'admin'] );
 
     Route::resource('roles', RolesController::class, ['except' => 'show', 'as' => 'admin'] );
+    Route::resource('permissions', PermissionsController::class, ['only' => ['index', 'edit', 'update'], 'as' => 'admin'] );
 
 
     Route::middleware('role:Admin')
