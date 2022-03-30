@@ -37,7 +37,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
     Route::resource('posts', PostsController::class, ['except' => 'show', 'as' => 'admin'] );
     Route::resource('users', UsersController::class, ['as' => 'admin'] );
 
-    Route::resource('roles', RolesController::class, ['as' => 'admin'] );
+    Route::resource('roles', RolesController::class, ['except' => 'show', 'as' => 'admin'] );
 
 
     Route::middleware('role:Admin')
