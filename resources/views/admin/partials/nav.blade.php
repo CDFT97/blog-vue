@@ -27,7 +27,7 @@
                             <p>All Posts</p>
                         </a>
                     </li>
-            @can('create', new App\Models\Post) )
+            @can('create', new App\Models\Post)
                     {{-- Create Post --}}
                     <li class="nav-item">
                         <a href="#" class="nav-link" data-toggle="modal" data-target="#exampleModal">

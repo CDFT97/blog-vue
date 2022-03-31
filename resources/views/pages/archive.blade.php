@@ -29,9 +29,13 @@
                 @endforeach
                 <h3 class="text-capitalize">posts by month</h3>
                 <ul class="list-unstyled">
-                    <li>August 2015</li>
-                    <li>September 2015</li>
-                    <li>October 2015</li>
+                    @foreach ($archive as $date) 
+                        <li>
+                            <a href="{{ route('pages.home', ['month' => $date->month, 'year' => $date->year]) }}">
+                            {{ $date->monthname }} {{ $date->year }} ({{$date->posts}})
+                            </a>
+                        </li>
+                    @endforeach
                 </ul>
             </div>
         </div>

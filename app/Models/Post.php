@@ -19,6 +19,7 @@ class Post extends Model
         'category_id',
         'user_id'
     ];
+    protected $with = ['category', 'tags', 'photos', 'user'];
 
     protected $dates = ['published_at'];
 
@@ -41,9 +42,11 @@ class Post extends Model
     public function scopePublished($query)
     {
         //Obtiene los post con fecha valida (Not null , fechas presente o pasadas, futuras no)
-        $query->whereNotNull('published_at')
-                        ->latest('published_at')
-                        ->where('published_at', '<=', Carbon::now() );
+        //(WITH)Precargar consyltas relacionadas (Reduce el numero de consultas)
+        $query->with(['category', 'tags', 'photos', 'user'])
+                ->whereNotNull('published_at')
+                ->latest('published_at')
+                ->where('published_at', '<=', Carbon::now() );
     }
 
     public function scopeAllowed($query)
@@ -57,6 +60,18 @@ class Post extends Model
            return $query->where('user_id', auth()->user()->id );
 
         }
+    }
+
+    public function scopeByYearAndMonth($query)
+    {
+        return $query->whereNotNull('published_at')
+            ->latest('year')->where('published_at', '<=', now() )
+            ->selectRaw('year(published_at) as year')
+            ->selectRaw('month(published_at) as month')
+            ->selectRaw('monthname(published_at) as monthname')
+            ->selectRaw('count(*) as posts')
+            ->groupBy('year', 'monthname', 'month')
+            ->orderBy('year')->get();
     }
 
     //Verificar si el post es publico

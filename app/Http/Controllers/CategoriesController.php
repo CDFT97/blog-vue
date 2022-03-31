@@ -11,7 +11,7 @@ class CategoriesController extends Controller
     {
         return view('pages.home', [
             'title' => "$category->name publications",
-            'posts' => $category->posts()->paginate()
+            'posts' => $category->posts()->published()->paginate()
         ]);
     }
 }
