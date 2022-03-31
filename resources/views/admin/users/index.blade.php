@@ -26,10 +26,12 @@
       <div class="card card-outline card-primary">
         <div class="card-header">
           <h3 class="card-title">List of Users</h3>
-          <a class="btn btn-primary float-right" href="{{ route('admin.users.create') }}">
-            <i class="fas fa-plus"></i> 
-            Create User
-          </a>
+          @can('create', $users->get(1))
+            <a class="btn btn-primary float-right" href="{{ route('admin.users.create') }}">
+              <i class="fas fa-plus"></i> 
+              Create User
+            </a>
+          @endcan
         </div>
         <!-- /.card-header -->
         <div class="card-body">
@@ -51,19 +53,26 @@
                 <td>{{$user->email}}</td>
                 <td>{{$user->getRoleNames()->implode(', ')}}</td>
                 <td>
-                  <a href="{{ route('admin.users.show', $user) }}" class="btn btn-sm btn-default">
-                    <i class="fas fa-eye"></i>
-                  </a>
+                  @can('view', $user)
+                    <a href="{{ route('admin.users.show', $user) }}" class="btn btn-sm btn-default">
+                      <i class="fas fa-eye"></i>
+                    </a>
+                  @endcan
+                    
+                  @can('update', $user)
+                    <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-sm btn-info">
+                      <i class="fas fa-pencil-alt"></i>
+                    </a>
+                  @endcan
 
-                  <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-sm btn-info">
-                    <i class="fas fa-pencil-alt"></i>
-                  </a>
-                  <form method="POST" class="deleteConfirm d-inline" action="{{route('admin.users.destroy', $user)}}" class="d-inline">
-                    @csrf @method('DELETE')
-                    <button class="btn btn-sm btn-danger" >
-                      <i class="fas fa-trash"></i>
-                    </button>
-                  </form>
+                  @can('delete', $user)
+                    <form method="POST" class="deleteConfirm d-inline" action="{{route('admin.users.destroy', $user)}}" class="d-inline">
+                      @csrf @method('DELETE')
+                      <button class="btn btn-sm btn-danger" >
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </form>
+                  @endcan
                 </td>
               </tr>
               @endforeach

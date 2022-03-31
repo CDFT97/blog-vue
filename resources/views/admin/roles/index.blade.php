@@ -26,10 +26,12 @@
       <div class="card card-outline card-primary">
         <div class="card-header">
           <h3 class="card-title">List of Roles</h3>
-          <a class="btn btn-primary float-right" href="{{ route('admin.roles.create') }}">
-            <i class="fas fa-plus"></i> 
-            Create Role
-          </a>
+          @can('create', $roles->first())
+            <a class="btn btn-primary float-right" href="{{ route('admin.roles.create') }}">
+              <i class="fas fa-plus"></i> 
+              Create Role
+            </a>
+          @endcan
         </div>
         <!-- /.card-header -->
         <div class="card-body">
@@ -51,17 +53,21 @@
                 <td>{{$role->display_name}}</td>
                 <td>{{ $role->permissions->pluck('display_name')->implode(', ') }}</td>
                 <td>
-                  <a href="{{ route('admin.roles.edit', $role) }}" class="btn btn-sm btn-info">
-                    <i class="fas fa-pencil-alt"></i>
-                  </a>
-                  @if ($role->id !== 1)
-                    <form method="POST" class="deleteConfirm d-inline" action="{{route('admin.roles.destroy', $role)}}" class="d-inline">
-                      @csrf @method('DELETE')
-                      <button class="btn btn-sm btn-danger" >
-                        <i class="fas fa-trash"></i>
-                      </button>
-                    </form>
-                  @endif
+                  @can('update', $role)
+                    <a href="{{ route('admin.roles.edit', $role) }}" class="btn btn-sm btn-info">
+                      <i class="fas fa-pencil-alt"></i>
+                    </a>
+                  @endcan
+                  @can('delete', $role)
+                    @if ($role->id !== 1)
+                      <form method="POST" class="deleteConfirm d-inline" action="{{route('admin.roles.destroy', $role)}}" class="d-inline">
+                        @csrf @method('DELETE')
+                        <button class="btn btn-sm btn-danger" >
+                          <i class="fas fa-trash"></i>
+                        </button>
+                      </form>
+                    @endif
+                  @endcan
                 </td>
               </tr>
               @endforeach

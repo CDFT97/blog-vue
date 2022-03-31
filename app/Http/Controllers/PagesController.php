@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PagesController extends Controller
@@ -22,7 +24,10 @@ class PagesController extends Controller
 
     public function archive()
     {
-        return view('pages.archive');
+        $authors = User::latest()->take(4)->get();
+        $categories = Category::take(7)->get();
+        $posts = Post::latest()->take(5)->get();
+        return view('pages.archive', compact('authors', 'categories', 'posts'));
     }
 
     public function contact()
