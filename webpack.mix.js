@@ -11,6 +11,14 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css')
+mix.js('resources/js/app.js', 'public/js').vue()
     .sourceMaps();
+
+mix.browserSync({
+    proxy: 'http://blog-vue.test/',
+    open: false
+
+});
+
+
+mix.disableNotifications();
