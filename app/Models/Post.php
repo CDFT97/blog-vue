@@ -23,6 +23,8 @@ class Post extends Model
 
     protected $dates = ['published_at'];
 
+    protected $appends = ['published_date'];
+
     public function category()
     { // $post->category->name
         return $this->belongsTo(Category::class);
@@ -150,6 +152,12 @@ class Post extends Model
 
         //Sincronizar etiquetas
        return $this->tags()->sync($tagIds);
+    }
+
+    //Accesor para fecha
+    public function getPublishedDateAttribute()
+    {
+        return optional($this->published_at)->format('M d');
     }
 
     protected static function boot()

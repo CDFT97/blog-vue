@@ -13,6 +13,7 @@ class PagesController extends Controller
     {
         return view('pages.spa');
     }
+
     public function home()
     {
         $query = Post::published();
@@ -26,6 +27,10 @@ class PagesController extends Controller
         endif;
 
         $posts = $query->paginate();
+
+        if( request()->wantsJson() ):
+            return $posts;
+        endif;
 
         return view('pages.home', compact('posts'));
     }

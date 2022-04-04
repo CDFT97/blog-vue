@@ -11,6 +11,10 @@ class PostsController extends Controller
     {
         if($post->isPublished() || auth()->check() ):
 
+            if( request()->wantsJson() ):
+                return $post;
+            endif;
+            
             return view('posts.show', compact('post'));
 
         endif;

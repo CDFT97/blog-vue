@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', [PagesController::class, 'home'])->name('pages.home');
 //Pagina principal para SPA
 Route::get('/', [PagesController::class, 'spa'])->name('pages.home');
+Route::get('/home', [PagesController::class, 'home'])->name('pages.home');
 
 Route::get('about', [PagesController::class, 'about'])->name('pages.about');
 Route::get('archive', [PagesController::class, 'archive'])->name('pages.archive');
