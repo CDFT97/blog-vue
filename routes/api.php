@@ -12,3 +12,6 @@ Route::get('blog/{post}', [PostsController::class, 'show']);
 Route::get('categories/{category}', [CategoriesController::class, 'show']);
 //etiquetas
 Route::get('tags/{tag}', [TagsController::class, 'show']);
+//Archive
+Route::get('archive', [PagesController::class, 'archive']);
+

@@ -14,7 +14,7 @@
         <p v-text="post.excerpt"></p>
         <footer class="container-flex space-between">
           <div class="read-more">
-            <router-link class="text-uppercase c-green" :to="{name: 'posts_show', params: {url: post.url} }">read more</router-link>
+            <post-link class="text-uppercase c-green" :post="post">Read more</post-link>
           </div>
 
           <!-- @include('posts.tags') -->

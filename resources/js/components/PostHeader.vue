@@ -10,9 +10,7 @@
             <div class="post-category">
                 <span class="category text-capitalize">
                 <div class="tags container-flex">
-                    <router-link :to="{name: 'category_posts', params: {category: post.category.url}}">
-                        {{ post.category.name }}
-                    </router-link>
+                    <category-link :category="post.category"></category-link>
                 </div>
                 </span>
             </div>

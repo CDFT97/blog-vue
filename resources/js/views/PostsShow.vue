@@ -19,8 +19,7 @@
       </footer>
       <div class="comments">
         <div class="divider"></div>
-        <div id="disqus_thread"></div>
-        <!-- @include('partials.disqus-script') -->
+        <comments></comments>
       </div>
       <!-- .comments -->
     </div>

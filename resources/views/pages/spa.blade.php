@@ -26,7 +26,7 @@
 			</div>
 		</header>
 		{{-- Contenido dinamico --}}
-		<router-view></router-view>
+		<router-view :key="$route.fullPath"></router-view>
 
 {{-- <div class="pagination">
 	<ul class="list-unstyled container-flex space-center">
@@ -52,12 +52,6 @@
 			<p>Nunc placerat dolor at lectus hendrerit dignissim. Ut tortor sem, consectetur nec hendrerit ut, ullamcorper ac odio. Donec viverra ligula at quam tincidunt imperdiet. Nulla mattis tincidunt auctor.</p>
 			<div class="divider-2" style="width: 80%;"></div>
 			<p>© 2022 - BlogVue. All Rights Reserved. Designed & Developed by <span class="c-white">Ing. César Febres</span></p>
-			<ul class="social-media-footer list-unstyled">
-				<li><a href="#" class="fb"></a></li>
-				<li><a href="#" class="tw"></a></li>
-				<li><a href="#" class="in"></a></li>
-				<li><a href="#" class="pn"></a></li>
-			</ul>
 		</div>
 	</footer>
 </section>

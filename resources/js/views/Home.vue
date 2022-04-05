@@ -1,23 +1,5 @@
 <template>
-  <posts-list :posts="posts"></posts-list>
-</template>
 
-<script>
-export default {
-  data() {
-    return {
-      posts: [],
-    };
-  },
-  mounted() {
-    axios
-      .get("/api/posts")
-      .then((res) => {
-        this.posts = res.data.data;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  },
-};
-</script>
+  <paginator url="/api/posts" component-name="posts-list"/>
+
+</template>
