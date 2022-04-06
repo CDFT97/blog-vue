@@ -14,6 +14,7 @@ const TagPosts = () => import('./views/TagPosts');
 const NotFound = () => import('./views/NotFound.vue');
 export const router = new VueRouter({
     linkExactActiveClass: 'active',
+    // mode: 'history',
     routes: [
         {
             name: 'home',
@@ -55,6 +56,9 @@ export const router = new VueRouter({
             path:'*',
             component: NotFound
         }
-    ]
+    ],
+    scrollBehavior(){
+        return {x:0, y:0};
+    }
 
 });

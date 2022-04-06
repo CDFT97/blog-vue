@@ -14,4 +14,6 @@ Route::get('categories/{category}', [CategoriesController::class, 'show']);
 Route::get('tags/{tag}', [TagsController::class, 'show']);
 //Archive
 Route::get('archive', [PagesController::class, 'archive']);
+//enviar form
+Route::post('messages', [PagesController::class, 'form']);
 

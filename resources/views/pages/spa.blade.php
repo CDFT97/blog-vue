@@ -26,7 +26,9 @@
 			</div>
 		</header>
 		{{-- Contenido dinamico --}}
-		<router-view :key="$route.fullPath"></router-view>
+		<Transition name="slide-fade" > 
+			<router-view :key="$route.fullPath"></router-view>
+		</Transition>
 
 {{-- <div class="pagination">
 	<ul class="list-unstyled container-flex space-center">
@@ -48,10 +50,9 @@
 					<li><a href="contact.html" class="text-uppercase c-white">contact</a></li>
 				</ul>
 			</nav>
-			<div class="divider-2"></div>
-			<p>Nunc placerat dolor at lectus hendrerit dignissim. Ut tortor sem, consectetur nec hendrerit ut, ullamcorper ac odio. Donec viverra ligula at quam tincidunt imperdiet. Nulla mattis tincidunt auctor.</p>
+
 			<div class="divider-2" style="width: 80%;"></div>
-			<p>© 2022 - BlogVue. All Rights Reserved. Designed & Developed by <span class="c-white">Ing. César Febres</span></p>
+			<p style="color: #000;">© 2022 - BlogVue. All Rights Reserved. Designed & Developed by <span style="color: #000" class="c-white">Ing. César Febres</span></p>
 		</div>
 	</footer>
 </section>

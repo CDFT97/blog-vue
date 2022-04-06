@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\LoginCredentials;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class PagesController extends Controller
 {
@@ -60,6 +62,21 @@ class PagesController extends Controller
     public function contact()
     {
         return view('pages.contact');
+    }
+
+    public function form(Request $request){
+        //Validar Formulario
+        $data = $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'subject' => 'required',
+            'message' => 'required'
+        ]);
+
+        return response()->json([
+            'status' => 'OK',
+            $data
+        ]);
     }
 
 }
